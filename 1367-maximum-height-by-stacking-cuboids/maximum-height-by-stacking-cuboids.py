@@ -3,7 +3,6 @@ class Solution:
         cuboids = sorted([sorted(cube) for cube in cuboids])
         n = len(cuboids)
         dp = [0] * n
-        print(cuboids)
         
         for i in range(n):
             maxHeight = cuboids[i][2]
