@@ -1,22 +1,16 @@
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
-        m, n = len(s1), len(s2)
-        if m + n != len(s3):
+        n1, n2, n3 = len(s1), len(s2), len(s3)
+        if n1 + n2 != n3:
             return False
-        if n < m:
-            s1, s2 = s2, s1
-            m, n = n, m
+        
+        dp = [[False] * (n2 + 1) for i in range(n1 + 1)]
+        dp[n1][n2] = True
 
-        dp = [False for _ in range(n + 1)]
-        dp[n] = True
-        for i in range(m, -1, -1):
-            nextDp = True if i == m else False
-            for j in range(n, -1, -1):
-                res = False if j < n else nextDp
-                if i < m and s1[i] == s3[i + j] and dp[j]:
-                    res = True
-                if j < n and s2[j] == s3[i + j] and nextDp:
-                    res = True
-                dp[j] = res
-                nextDp = dp[j]
-        return dp[0]
+        for i in range(n1, -1, -1):
+            for j in range(n2, -1, -1):
+                if i < n1 and s1[i] == s3[i + j] and dp[i + 1][j]:
+                    dp[i][j] = True
+                if j < n2 and s2[j] == s3[i + j] and dp[i][j + 1]:
+                    dp[i][j] = True
+        return dp[0][0]
