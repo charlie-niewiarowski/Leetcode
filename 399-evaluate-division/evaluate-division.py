@@ -22,6 +22,7 @@ class Solution:
 
                 if n == y:
                     res.append(val)
+                    adj[n].append((y, val))
                     found = True
                     break
                 
