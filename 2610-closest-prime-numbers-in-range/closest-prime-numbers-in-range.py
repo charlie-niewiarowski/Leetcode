@@ -1,24 +1,27 @@
 class Solution:
     def closestPrimes(self, left: int, right: int) -> List[int]:
-        def is_prime(number):
-            if number < 2:
-                return False
-            if number == 2:
-                return True
-            if number % 2 == 0:  
-                return False
+        def primes():
+            primes = [True] * (right + 1)
+            primes[0] = primes[1] = False
 
-            for i in range(3, int(math.sqrt(number)) + 1, 2):
-                if number % i == 0:
-                    return False
-            return True
-        
-        lastPrime, res = -1, [0, float('inf')]
-        for n in range(left, right + 1):
-            if not is_prime(n):
-                continue
+            for n in range(2, int(math.sqrt(right)) + 1):
+                if primes[n] == False:
+                    continue
+                
+                for m in range(2 * n, right + 1, n):
+                    primes[m] = False
             
-            if lastPrime != -1 and res[1] - res[0] > n - lastPrime:
-                res = [lastPrime, n]
-            lastPrime = n
-        return res if res != [0, float('inf')] else [-1, -1]
+            res = []
+            for i in range(left, right + 1):
+                if primes[i]:
+                    res.append(i)
+            return res
+        
+        diff, res = right - left + 1, [-1, -1]
+        primes = primes()
+        print(primes)
+        for i in range(len(primes) - 1):
+            if primes[i + 1] - primes[i] < diff:
+                diff = primes[i + 1] - primes[i]
+                res = [primes[i], primes[i + 1]]    
+        return res
