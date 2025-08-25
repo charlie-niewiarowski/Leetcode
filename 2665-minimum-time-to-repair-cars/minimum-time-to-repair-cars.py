@@ -6,7 +6,7 @@ class Solution:
                 repairedCars += int(math.sqrt(time / r))
             return repairedCars >= cars
         
-        l, r = 0, max(ranks) * cars * cars
+        l, r = 1, ranks[0] * cars * cars
         res = r
         while l <= r:
             m = (l + r) // 2
