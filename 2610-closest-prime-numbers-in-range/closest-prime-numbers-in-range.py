@@ -19,7 +19,6 @@ class Solution:
         
         diff, res = right - left + 1, [-1, -1]
         primes = primes()
-        print(primes)
         for i in range(len(primes) - 1):
             if primes[i + 1] - primes[i] < diff:
                 diff = primes[i + 1] - primes[i]
