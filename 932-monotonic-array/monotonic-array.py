@@ -6,4 +6,6 @@ class Solution:
                 increasing = False
             elif nums[i] > nums[i + 1]:
                 decreasing = False
+            
+            if not (increasing or decreasing): return False
         return increasing or decreasing
