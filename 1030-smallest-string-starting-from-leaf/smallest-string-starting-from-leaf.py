@@ -6,21 +6,19 @@
 #         self.right = right
 class Solution:
     def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
-        def dfs(root, cur):
-            if not root:
-                return
+        q = deque([(root, "")])
+        res = None
 
-            cur = chr(ord('a') + root.val) + cur
-            if root.left and root.right:
-                return min(
-                    dfs(root.left, cur),
-                    dfs(root.right, cur)
-                )
+        while q:
+            node, cur = q.popleft()
+            cur = chr(ord('a') + node.val) + cur
 
-            if root.right:
-                return dfs(root.right, cur)
-            if root.left:
-                return dfs(root.left, cur)
-            return cur
+            if not node.left and not node.right:
+                res = min(res, cur) if res else cur
 
-        return dfs(root, "")
+            if node.left:
+                q.append((node.left, cur))
+            if node.right:
+                q.append((node.right, cur))
+
+        return res
