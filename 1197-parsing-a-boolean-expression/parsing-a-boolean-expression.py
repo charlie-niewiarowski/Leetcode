@@ -7,7 +7,7 @@ class Solution:
             nonlocal i
             c = s[i]
             i += 1
-
+            
             if c == 't':
                 return True
             if c == 'f':
@@ -18,9 +18,8 @@ class Solution:
                 i += 1
                 return res
             
-            vals = []
             i += 1
-            
+            vals = []
             while s[i] != ')':
                 if s[i] != ',':
                     vals.append(helper())
@@ -34,4 +33,3 @@ class Solution:
                 return any(vals)
         
         return helper()
-
