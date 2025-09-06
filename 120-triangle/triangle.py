@@ -5,7 +5,6 @@ class Solution:
 
         for r in range(h - 1, -1, -1):
             for c in range(len(triangle[r])):
-
                 dp[r][c] = triangle[r][c] + min(dp[r + 1][c], dp[r + 1][c + 1])
         
         return dp[0][0]
