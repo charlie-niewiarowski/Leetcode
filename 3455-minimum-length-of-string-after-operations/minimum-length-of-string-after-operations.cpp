@@ -1,18 +1,18 @@
 class Solution {
 public:
     int minimumLength(string s) {
+        vector<int> counts(26, 0);
         int res = s.size();
-        unordered_map<char, int> counts;
 
-        for (const char& c : s) {
-            if (counts[c] == 2) {
-                counts[c] -= 1;
+        for (char c : s) {
+            int idx = c - 'a';
+            if (counts[idx] == 2) {
+                counts[idx] -= 1;
                 res -= 2;
             } else {
-                counts[c] += 1;
+                counts[idx] += 1;
             }
         }
-
         return res;
     }
 };
