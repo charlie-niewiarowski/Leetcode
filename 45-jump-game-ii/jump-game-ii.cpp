@@ -2,16 +2,20 @@ class Solution {
 public:
     int jump(vector<int>& nums) {
         int n = nums.size();
-        vector<int> dp(n, std::numeric_limits<int>::max() - 1);
-        dp[n - 1] = 0;
+        int l{}, r{};
+        int res{};
 
-        for (int i{n - 2}; i >= 0; --i) {
-            int max_steps{nums[i]};
-            for (int j{1}; j <= max_steps && i + j < n; ++j) {
-                dp[i] = min(dp[i], dp[i + j] + 1);
+        while (r < n - 1) {
+            int farthest = 0;
+            for (int i{l}; i < r + 1; ++i) {
+                farthest = max(farthest, i + nums[i]);
             }
+
+            l = r + 1;
+            r = farthest;
+            ++res;
         }
 
-        return dp[0];
+        return res;
     }
 };
