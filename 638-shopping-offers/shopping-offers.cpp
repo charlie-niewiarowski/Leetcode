@@ -17,11 +17,15 @@ private:
     unordered_map<vector<int>, int, VectorHash> cache;
 
     int dfs(vector<int>& price, vector<vector<int>>& special, vector<int>& needs) {
-        if (std::accumulate(needs.begin(), needs.end(), 0) == 0) return 0;
         if (cache.contains(needs)) return cache[needs];
-
-        int min_price = INT_MAX;
         int n = needs.size();
+
+        int min_cost = 0;
+        for (int i = 0; i < n; ++i) {
+            min_cost += needs[i] * price[i];
+        }
+        if (min_cost == 0) return 0;
+
         for (const auto& offer : special) {
             vector<int> new_needs(n, 0);
             bool overflows = false;
@@ -36,17 +40,11 @@ private:
             }
 
             if (overflows) continue;
-            min_price = min(min_price, offer[n] + dfs(price, special, new_needs));
+            min_cost = min(min_cost, offer[n] + dfs(price, special, new_needs));
         }
 
-        int no_offer_price = 0;
-        for (int i = 0; i < n; ++i) {
-            no_offer_price += needs[i] * price[i];
-        }
-
-        min_price = min(min_price, no_offer_price);
-        cache[needs] = min_price;
-        return min_price;
+        cache[needs] = min_cost;
+        return min_cost;
     }
 public:
     int shoppingOffers(vector<int>& price, vector<vector<int>>& special, vector<int>& needs) {
