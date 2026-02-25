@@ -17,6 +17,6 @@ public:
             }
         }
 
-        return static_cast<int>(dp[steps][0] % MOD);
+        return dp[steps][0];
     }
 };
