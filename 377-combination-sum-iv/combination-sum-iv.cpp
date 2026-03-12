@@ -1,19 +1,17 @@
 class Solution {
 public:
     int combinationSum4(vector<int>& nums, int target) {
-        if (target == 0) return 1;
+        vector<unsigned long long> dp(target + 1, 0);
+        dp[0] = 1;
 
-        vector<unsigned int> dp(target + 1, 0);
-        for (int goal = 1; goal <= target; ++goal) {
-            for (const int& num : nums) {
-                if (goal - num > 0) {
-                    dp[goal] += dp[goal - num];
-                } else if (goal - num == 0) {
-                    dp[goal] += 1;
+        for (int i = 1; i <= target; ++i) {
+            for (int num : nums) {
+                if (i - num >= 0) {
+                    dp[i] += dp[i - num];
                 }
             }
         }
 
-        return int(dp[target]);
+        return dp[target];
     }
 };
