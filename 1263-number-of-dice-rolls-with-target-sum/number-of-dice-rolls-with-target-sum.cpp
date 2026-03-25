@@ -16,8 +16,8 @@ public:
         for (int i = 1; i < n; ++i) {
             if (i > target) break;
 
-            for (int j = i + 1; j <= min(target, (i + 1) * k); ++j) {
-                for (int l = max(i, j - k); l < j; ++l) {
+            for (int j = i + 1; j <= target; ++j) {
+                for (int l = max(1, j - k); l < j; ++l) {
                     dp[i][j] = (dp[i][j] + dp[i - 1][l]) % MOD;
                 }
             }
