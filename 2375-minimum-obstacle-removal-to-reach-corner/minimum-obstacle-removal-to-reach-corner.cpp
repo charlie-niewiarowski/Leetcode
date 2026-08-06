@@ -1,13 +1,3 @@
-/*
-we need two queues
-we should only pop the "bad" queue whenever the "good queue" is empty
-each queue will contain r, c, obstacles
-we should have visited[r][c] = best we've seen so far
-let's outsource visitation decisions to a helper function
-
-visited[][]
-*/
-
 class Solution {
 public:
     int minimumObstacles(vector<vector<int>>& grid) {
@@ -32,8 +22,7 @@ public:
                 free_queue.pop_front(); 
 
                 if (r == rows - 1 && c == cols - 1) {
-                    best = min(best, num_obstacles);
-                    continue;
+                    return num_obstacles;
                 }
 
                 for (auto [dr, dc] : directions) {
