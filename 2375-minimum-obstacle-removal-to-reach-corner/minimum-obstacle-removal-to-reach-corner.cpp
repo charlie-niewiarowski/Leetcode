@@ -14,8 +14,7 @@ public:
         free_queue.push_back({0, 0, 0});
         visited[0][0] = 0;
 
-        int best{std::numeric_limits<int>::max()};
-        while (!free_queue.empty() || !blocked_queue.empty()) {
+        for (;;) {
             while (!free_queue.empty()) {
                 auto top = free_queue.front();
                 int r = top[0], c = top[1], num_obstacles = top[2];
@@ -57,14 +56,7 @@ public:
             }
         }
 
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                cout << visited[i][j] << " ";
-            }
-            cout << "\n";
-        }
-
-        return best;
+        return -1;
     }
 
 private:
